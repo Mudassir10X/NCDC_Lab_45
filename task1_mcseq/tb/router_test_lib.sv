@@ -104,3 +104,33 @@ class test_uvc_integration extends base_test;
     endfunction //build_phase
 
 endclass //test_uvc_integration extends base_test
+
+class test_mcseqr extends base_test;
+    `uvm_component_utils(test_mcseqr)
+
+    function new(string name = "test_mcseqr", uvm_component parent);
+        super.new(name, parent);
+    endfunction //new()
+
+    function void build_phase(uvm_phase phase);
+        super.build_phase(phase);
+        `uvm_info("BUILD_PHASE", "Executing build_phase of test_mcseqr", UVM_HIGH)
+        uvm_factory::get().set_type_override_by_type(yapp_packet::get_type(), short_yapp_packet::get_type());
+        uvm_config_wrapper::set(this, "tb.mc_seqr.run_phase",
+                                        "default_sequence",
+                                        router_simple_mcseq::get_type());
+        uvm_config_wrapper::set(this, "tb.channel_0.rx_agent.sequencer.run_phase",
+                                        "default_sequence",
+                                        channel_rx_resp_seq::get_type());
+        uvm_config_wrapper::set(this, "tb.channel_1.rx_agent.sequencer.run_phase",
+                                        "default_sequence",
+                                        channel_rx_resp_seq::get_type());
+        uvm_config_wrapper::set(this, "tb.channel_2.rx_agent.sequencer.run_phase",
+                                        "default_sequence",
+                                        channel_rx_resp_seq::get_type());
+        uvm_config_wrapper::set(this, "tb.clock_and_reset_e.agent.sequencer.run_phase",
+                                        "default_sequence",
+                                        clk10_rst5_seq::get_type());
+    endfunction //build_phase
+
+endclass //test_mcseqr extends base_test
