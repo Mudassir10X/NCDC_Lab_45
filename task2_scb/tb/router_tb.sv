@@ -20,6 +20,9 @@ class router_tb extends uvm_env;
     // Adding the clk and rst instance
     clock_and_reset_env clock_and_reset_e;
 
+    // Adding the router scoreboard instance
+    router_scoreboard router_sb;
+
     function new(string name, uvm_component parent);
         super.new(name, parent);
     endfunction
@@ -47,6 +50,9 @@ class router_tb extends uvm_env;
         
         // Create the clock_and_reset_env instance
         clock_and_reset_e = clock_and_reset_env::type_id::create("clock_and_reset_e", this);
+
+        // Crreate the router scoreboard instance
+        router_sb = router_scoreboard::type_id::create("router_sb", this);
         
         // Set the channel_id configuration for each channel
         uvm_config_int::set(this, "channel_0", "channel_id", 0);
@@ -68,5 +74,11 @@ class router_tb extends uvm_env;
 
         // Connect the mc_seqr to the hbus_e sequencer
         mc_seqr.hbus_seqr = hbus_e.masters[0].sequencer;
+
+        // Connect the yapp_e.agent.monitor to the router_sb through TLM
+        yapp_e.tx_agent.monitor.yapp_out.connect(router_sb.yapp_in);
+        channel_0.rx_agent.monitor.item_collected_port.connect(router_sb.chan0_in);
+        channel_1.rx_agent.monitor.item_collected_port.connect(router_sb.chan1_in);
+        channel_2.rx_agent.monitor.item_collected_port.connect(router_sb.chan2_in);
     endfunction
 endclass //router_tb extends uvm_env

@@ -101,6 +101,7 @@ import yapp_pkg::*;
          parity = in_data;
       // reset trigger
       monstart = 1'b0;
+      
   endtask : collect_packet
 
 

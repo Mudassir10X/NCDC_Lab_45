@@ -82,10 +82,10 @@ class test_uvc_integration extends base_test;
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         `uvm_info("BUILD_PHASE", "Executing build_phase of test_uvc_integration", UVM_HIGH)
-        uvm_factory::get().set_type_override_by_type(yapp_packet::get_type(), short_yapp_packet::get_type());
+        // uvm_factory::get().set_type_override_by_type(yapp_packet::get_type(), short_yapp_packet::get_type());
         uvm_config_wrapper::set(this, "tb.yapp_e.tx_agent.sequencer.run_phase",
                                         "default_sequence",
-                                        yapp_exhaustive_all_seq::get_type());
+                                        yapp_exhaustive_seq::get_type());
         uvm_config_wrapper::set(this, "tb.channel_0.rx_agent.sequencer.run_phase",
                                         "default_sequence",
                                         channel_rx_resp_seq::get_type());
