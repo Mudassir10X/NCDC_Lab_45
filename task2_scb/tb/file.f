@@ -5,9 +5,7 @@
 
 // include directories
 //*** add incdir include directories here
--incdir ../router_rtl
-// -incdir ../task1_integ/sv/
-// -incdir ../task1_integ/tb/
+// -incdir ../router_rtl
 -incdir ../task2_scb/sv/
 -incdir ../task2_scb/tb/
 -incdir ../channel/sv
@@ -25,7 +23,7 @@
 ../task2_scb/sv/yapp_pkg.sv
 ../task2_scb/sv/yapp_if.sv
 ../task2_scb/tb/clkgen.sv
-../task2_scb/tb/top.sv
 ../router_rtl/yapp_router.sv
 ../task2_scb/tb/hw_top.sv
+../task2_scb/tb/top.sv
 
